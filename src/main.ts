@@ -44,7 +44,7 @@ async function bootstrap() {
     const cityCron = app.get(CityCron);
     await Promise.all([
       propertyCron.runImmediately(),
-      // cityCron.runImmediately(),
+      cityCron.runImmediately(),
     ]);
   });
 }
