@@ -52,7 +52,6 @@ Swagger UI available at http://localhost:3000/api
 10. `src/main.ts` bootstraps whole application.
 11. `src/runMigrations` contains logic for running migrations.
 
-
 # How We Read from AWS S3
 
 Files in S3 can be huge, so the best approach would be streaming them. The logic of reading is in `src/reader/S3Reader.ts`.
