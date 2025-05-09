@@ -66,7 +66,7 @@ Below, you can see following steps that can help you to achieve that:
 1. Add a Model `Restaurant` into `model` directory:
 
 ```ts
-export interface Restaurants {
+export interface Restaurant {
   id: string;
   country: string;
   city: string;
