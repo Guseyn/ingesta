@@ -50,7 +50,7 @@ Swagger UI available at http://localhost:3000/api
 8. `src/app.module.ts` contains all dependencies and their configurations.
 9. `src/app.service.ts` contains all the business logic for controllers.
 10. `src/main.ts` bootstraps whole application.
-11. `src/runMigrations` contains logic for running migrations.
+11. `src/runMigrations.ts` contains logic for running migrations.
 
 # How We Read from AWS S3
 
