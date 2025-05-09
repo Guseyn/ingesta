@@ -34,15 +34,20 @@ export class MongoIngestor<T> {
 
     try {
       await collection.bulkWrite(
-        (this.batch as OptionalId<Document>[]).map((doc) => ({
-          updateOne: {
-            filter: { id: (doc as any).id },
-            update: { $set: doc },
-            upsert: true,
-          },
-        }))
+        (this.batch as OptionalId<Document>[]).map(
+          (doc: OptionalId<Document>) => ({
+            updateOne: {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              filter: { id: doc.id },
+              update: { $set: doc },
+              upsert: true,
+            },
+          }),
+        ),
       );
-      console.log(`inserted ${this.batch.length} documents to ${this.collectionName}`);
+      console.log(
+        `inserted ${this.batch.length} documents to ${this.collectionName}`,
+      );
     } catch (error) {
       console.error('Failed to insert batch:', error);
     }
