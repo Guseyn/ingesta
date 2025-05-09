@@ -83,7 +83,7 @@ export const RESTAURANY_COLLECTION_NAME = 'restaurants';
 export const RestaurantReader = {
   provide: 'RESTAURANT_READER',
   useFactory: () => {
-    return new S3Reader<City>(
+    return new S3Reader<Restuarant>(
       'https://buenro-tech-assessment-materials.s3.eu-north-1.amazonaws.com/restaurants.json'
     );
   },
@@ -113,8 +113,8 @@ export class RestaurantCron {
   private isRunning = false;
 
   constructor(
-    @Inject('RESTAURANT_READER') private readonly restaurantS3Reader: S3Reader<Property>,
-    @Inject('RESTAURANT_INGESTOR') private readonly restaurantMongoIngestor: MongoIngestor<Property>,
+    @Inject('RESTAURANT_READER') private readonly restaurantS3Reader: S3Reader<Restuarant>,
+    @Inject('RESTAURANT_INGESTOR') private readonly restaurantMongoIngestor: MongoIngestor<Restuarant>,
   ) {}
 
   @Cron('0 */12 * * *') // every 12 hours
@@ -131,15 +131,15 @@ export class RestaurantCron {
         await this.restaurantMongoIngestor.ingestByBatches(restaurant);
       })
     } catch (error) {
-      this.logger.error('Error in Property Cron job:', error);
+      this.logger.error('Error in Restaurant Cron job:', error);
     } finally {
       this.isRunning = false;
-      this.logger.log('Property Cron job finished.');
+      this.logger.log('Restaurant Cron job finished.');
     }
   }
 
   async runImmediately() {
-    this.logger.log('Starting Property Cron manually on module init...');
+    this.logger.log('Starting Restaurant Cron manually on module init...');
     await this.handleCron();
   }
 }
