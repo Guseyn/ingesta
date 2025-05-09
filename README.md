@@ -47,7 +47,7 @@ Swagger UI available at http://localhost:3000/api
 5. `mongo` directory contains MongoDb provider.
 6. `reader` directory contains all providers for reading the data from AWS S3.
 
-# How we read from AWS S3
+# How We Read from AWS S3
 
 Files in S3 can be huge, so the best approach would be streaming them. The logic of reading is in `src/reader/S3Reader.ts`.
 
@@ -57,7 +57,7 @@ This is my custom parser, it's suited only for array of object (which can be nes
 Each `chunk` can be incomplete piece of JSON, so this function is quite smart to buffer pieces of JSON that can be parsed.
 On each parsed object, we call ingestor, that builds batches of objects. Once it reaches its `batchSize`, it ingest all the whole batch.
 
-# How to add a new Model
+# How to Add a New Model
 
 Let's say, you want to work with a new model `Restaurant`, which you need read from AWS S3 and ingest it into MongoDB.
 
