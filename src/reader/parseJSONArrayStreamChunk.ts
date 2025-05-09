@@ -12,7 +12,7 @@ export async function parseJSONArrayStreamChunk<T>(
 ) {
   parserState.buffer += chunk;
 
-  let currentObjectAccumulator: string[]|null = null;
+  let currentObjectAccumulator: string[] | null = null;
   let inString = false;
   let depth = 0;
   let lastOpenBraceIndexWithDepthZero = 0;
@@ -27,18 +27,26 @@ export async function parseJSONArrayStreamChunk<T>(
       inString = !inString;
       currentObjectAccumulator.push(currentChar);
       if (i === parserState.buffer.length - 1) {
-        parserState.buffer = parserState.buffer.slice(lastOpenBraceIndexWithDepthZero);
+        parserState.buffer = parserState.buffer.slice(
+          lastOpenBraceIndexWithDepthZero,
+        );
       }
       continue;
     }
     if (inString && currentObjectAccumulator) {
-      if (currentChar === '\n' || currentChar === '\r' || currentChar === '\t') {
+      if (
+        currentChar === '\n' ||
+        currentChar === '\r' ||
+        currentChar === '\t'
+      ) {
         currentObjectAccumulator.push('\\' + currentChar);
       } else {
         currentObjectAccumulator.push(currentChar);
       }
       if (i === parserState.buffer.length - 1) {
-        parserState.buffer = parserState.buffer.slice(lastOpenBraceIndexWithDepthZero);
+        parserState.buffer = parserState.buffer.slice(
+          lastOpenBraceIndexWithDepthZero,
+        );
       }
       continue;
     }
@@ -52,7 +60,9 @@ export async function parseJSONArrayStreamChunk<T>(
         currentObjectAccumulator.push(currentChar);
       }
       if (i === parserState.buffer.length - 1) {
-        parserState.buffer = parserState.buffer.slice(lastOpenBraceIndexWithDepthZero);
+        parserState.buffer = parserState.buffer.slice(
+          lastOpenBraceIndexWithDepthZero,
+        );
       }
       continue;
     }
@@ -65,19 +75,25 @@ export async function parseJSONArrayStreamChunk<T>(
         currentObjectAccumulator = null;
       }
       if (i === parserState.buffer.length - 1) {
-        parserState.buffer = parserState.buffer.slice(lastOpenBraceIndexWithDepthZero);
+        parserState.buffer = parserState.buffer.slice(
+          lastOpenBraceIndexWithDepthZero,
+        );
       }
       continue;
     }
     if (currentObjectAccumulator) {
       currentObjectAccumulator.push(currentChar);
       if (i === parserState.buffer.length - 1) {
-        parserState.buffer = parserState.buffer.slice(lastOpenBraceIndexWithDepthZero);
+        parserState.buffer = parserState.buffer.slice(
+          lastOpenBraceIndexWithDepthZero,
+        );
       }
       continue;
     }
     if (i === parserState.buffer.length - 1) {
-      parserState.buffer = parserState.buffer.slice(lastOpenBraceIndexWithDepthZero);
+      parserState.buffer = parserState.buffer.slice(
+        lastOpenBraceIndexWithDepthZero,
+      );
     }
   }
 }

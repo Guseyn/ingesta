@@ -11,9 +11,7 @@ import { CityCron } from './cron/CityCron';
 import { PropertyCron } from './cron/PropertyCron';
 
 @Module({
-  imports: [
-    ScheduleModule.forRoot()
-  ],
+  imports: [ScheduleModule.forRoot()],
   controllers: [AppController],
   providers: [
     AppService,
@@ -23,7 +21,7 @@ import { PropertyCron } from './cron/PropertyCron';
     PropertyIngestor,
     CityIngestor,
     PropertyCron,
-    CityCron
+    CityCron,
   ],
 })
 export class AppModule {}

@@ -40,12 +40,18 @@ Swagger UI available at http://localhost:3000/api
 
 # Project Structure
 
-1. `cron` directory contains all cron jobs.
-2. `dto` directory contains all DTOs for requests in our endpoints.
-3. `ingestor` directory contains providers for ingesting the data into MongoDB.
-4. `model` directory contains all models that we want to ingest.
-5. `mongo` directory contains MongoDb provider.
-6. `reader` directory contains all providers for reading the data from AWS S3.
+1. `src/cron` directory contains all cron jobs.
+2. `src/dto` directory contains all DTOs for requests in our endpoints.
+3. `src/ingestor` directory contains providers for ingesting the data into MongoDB.
+4. `src/model` directory contains all models that we want to ingest.
+5. `src/mongo` directory contains MongoDb provider.
+6. `src/reader` directory contains all providers for reading the data from AWS S3.
+7. `src/app.controller.ts` contains all endpoints for querying our models.
+8. `src/app.module.ts` contains all dependencies and their configurations.
+9. `src/app.service.ts` contains all the business logic for controllers.
+10. `src/main.ts` bootstraps whole application.
+11. `src/runMigrations` contains logic for running migrations.
+
 
 # How We Read from AWS S3
 

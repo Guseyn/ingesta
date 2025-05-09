@@ -1,4 +1,7 @@
-import { parseJSONArrayStreamChunk, ParserState } from './parseJSONArrayStreamChunk';
+import {
+  parseJSONArrayStreamChunk,
+  ParserState,
+} from './parseJSONArrayStreamChunk';
 
 export class S3Reader<T> {
   private readonly url;
@@ -13,7 +16,9 @@ export class S3Reader<T> {
     const response = await fetch(this.url);
 
     if (!response.ok || !response.body) {
-      throw new Error(`Failed to fetch from ${this.url}: ${response.statusText}`);
+      throw new Error(
+        `Failed to fetch from ${this.url}: ${response.statusText}`,
+      );
     }
 
     const decoder = new TextDecoder();
@@ -29,7 +34,11 @@ export class S3Reader<T> {
 
       const chunk: string = decoder.decode(value, { stream: true });
 
-      await parseJSONArrayStreamChunk<T>(chunk, parserState, onEachElementCallback);
+      await parseJSONArrayStreamChunk<T>(
+        chunk,
+        parserState,
+        onEachElementCallback,
+      );
 
       if (done) break;
     }

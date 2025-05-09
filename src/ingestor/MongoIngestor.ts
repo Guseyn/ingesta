@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
 import { MongoClient, OptionalId, Document } from 'mongodb';
 import * as process from 'node:process';
 

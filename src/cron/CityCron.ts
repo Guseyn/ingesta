@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Cron } from '@nestjs/schedule';
 import { S3Reader } from '../reader/S3Reader';
 import { MongoIngestor } from '../ingestor/MongoIngestor';
@@ -11,7 +11,8 @@ export class CityCron {
 
   constructor(
     @Inject('CITY_READER') private readonly cityS3Reader: S3Reader<City>,
-    @Inject('CITY_INGESTOR') private readonly cityMongoIngestor: MongoIngestor<City>,
+    @Inject('CITY_INGESTOR')
+    private readonly cityMongoIngestor: MongoIngestor<City>,
   ) {}
 
   @Cron('0 */12 * * *') // every 12 hours
@@ -26,7 +27,7 @@ export class CityCron {
     try {
       await this.cityS3Reader.streamJSON(async (city: City) => {
         await this.cityMongoIngestor.ingestByBatches(city);
-      })
+      });
     } catch (error) {
       this.logger.error('Error in Property City job:', error);
     } finally {

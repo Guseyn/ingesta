@@ -11,17 +11,13 @@ export class AppController {
 
   @Get('properties')
   @ApiOperation({ summary: 'Get filtered list of properties' })
-  async getProperties(
-    @Query() query: PropertyRequestDto
-  ) {
+  async getProperties(@Query() query: PropertyRequestDto) {
     return await this.appService.getProperties(query);
   }
 
   @Get('cities')
   @ApiOperation({ summary: 'Get filtered list of cities' })
-  async getCities(
-    @Query() query: CityRequestDto
-  ) {
+  async getCities(@Query() query: CityRequestDto) {
     return await this.appService.getCities(query);
   }
 }
