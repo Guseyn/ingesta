@@ -27,6 +27,7 @@ npm run docker:up
 ```
 
 App available at http://localhost:3000
+
 Swagger UI available at http://localhost:3000/api
 
 # Application Logic
