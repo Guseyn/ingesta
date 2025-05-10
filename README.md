@@ -101,7 +101,7 @@ export const RestaurantReader = {
 };
 ```
 
-3. Add a provider in `ingestor/providers` directory that correspond to a new model:
+3. Add a provider in `ingestor/providers` directory that corresponds to a new model:
 
 ```ts
 export const RestaurantIngestor = {
