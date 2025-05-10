@@ -34,7 +34,7 @@ Swagger UI available at http://localhost:3000/api
 
 1. We run MongoDB migrations, where we add indices on main properties, it will allow us to perform quicker searches. I am using good old `mongo-migrate` library.
 2. We create NestJS app structure.
-3. We create validation pipe for requests, it will allow us to reduce boilerplate for handling `400` Bad Request requests.
+3. We create validation pipe for requests, it will allow us to reduce boilerplate for handling `400` Bad Requests.
 4. We setup Swagger, so that we can easily test our APIs.
 5. We run server on 3000 port.
 6. We run cron jobs after. Cron Jobs also run every 12 hours.
