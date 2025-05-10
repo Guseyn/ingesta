@@ -57,13 +57,13 @@ Swagger UI available at http://localhost:3000/api
 Files in S3 can be huge, so the best approach would be streaming them. The logic of reading is in `src/reader/S3Reader.ts`.
 
 While we stream our `response.body`, on each `chunk` we call `parseJSONArrayStreamChunk` function. 
-This is my custom parser, it's suited only for array of object (which can be nested). 
+This is my custom parser, it's suited only for array of objects (which can be nested). 
 
-Each `chunk` can be incomplete piece of JSON, so this function is quite smart to buffer pieces of JSON that can be parsed.
+Each `chunk` can be an incomplete piece of JSON, so this function is quite smart that buffers pieces of JSON that can be parsed.
 
 # How We Write to MongoDB
 
-On each parsed object, we call ingestor, that fills batches of objects. Once it reaches its `batchSize` (100 by default) or the end of the stream, it ingest the whole batch.
+On each parsed object, we call ingestor, that fills batches of objects. Once it reaches its `batchSize` (100 by default), it ingests the whole batch.
 in `src/ingestor/MongoIngestor.ts`, you can see how it works. We are using `collection.bulkWrite` to write many documents at once, and we also updating documents by id to avoid duplicates.
 The only thing that we don't do is deleting obsolete documents, since it would require a lot more time.
 
@@ -101,7 +101,7 @@ export const RestaurantReader = {
 };
 ```
 
-3. Add a provider in `ingestor/providers` directory that correspond to a new model:
+3. Add a provider in `ingestor/providers` directory that corresponds to a new model:
 
 ```ts
 export const RestaurantIngestor = {
@@ -155,7 +155,7 @@ export class RestaurantCron {
 }
 ```
 
-As you can see, main logic in the lines:
+As you can see, the main logic is in the lines:
 
 ```ts
 await this.restaurantS3Reader.streamJSON(async (restaurant: Restaurant, done: boolean) => {
