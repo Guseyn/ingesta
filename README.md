@@ -65,7 +65,7 @@ Each `chunk` can be an incomplete piece of JSON, so this function is quite smart
 # How We Write to MongoDB
 
 On each parsed object, we call ingestor, that fills batches of objects. Once it reaches its `batchSize` (100 by default), it ingests the whole batch.
-in `src/ingestor/MongoIngestor.ts`, you can see how it works. We are using `collection.bulkWrite` to write many documents at once, and we also updating documents by id to avoid duplicates.
+in `src/ingestor/MongoIngestor.ts`, you can see how it works. We are using `collection.bulkWrite` to write many documents at once, and we also update documents by id to avoid duplicates.
 The only thing that we don't do is deleting obsolete documents, since it would require a lot more time.
 
 # How to Add a New Model
