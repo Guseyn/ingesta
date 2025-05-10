@@ -35,17 +35,14 @@ async function bootstrap() {
 
   // SERVER
   const port = process.env.PORT ?? 3000;
-  await app.listen(port).then(async () => {
-    console.log(`App started at http://localhost:${port}`);
-    console.log(`Swagger UI available at http://localhost:${port}/api`);
+  await app.listen(port);
 
-    // RUN CRON JOBS AFTER SERVER IS READY
-    const propertyCron = app.get(PropertyCron);
-    const cityCron = app.get(CityCron);
-    await Promise.all([
-      propertyCron.runImmediately(),
-      cityCron.runImmediately(),
-    ]);
-  });
+  console.log(`App started at http://localhost:${port}`);
+  console.log(`Swagger UI available at http://localhost:${port}/api`);
+
+  // RUN CRON JOBS AFTER SERVER IS READY
+  const propertyCron = app.get(PropertyCron);
+  const cityCron = app.get(CityCron);
+  await Promise.all([propertyCron.runImmediately(), cityCron.runImmediately()]);
 }
 bootstrap();

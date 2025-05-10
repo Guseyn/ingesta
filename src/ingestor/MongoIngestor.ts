@@ -18,10 +18,15 @@ export class MongoIngestor<T> {
     this.batchSize = batchSize || 100;
   }
 
-  public async ingestByBatches(document: T, done: boolean): Promise<void> {
-    this.batch.push(document);
+  public async ingestByBatches(
+    document: T | null,
+    done: boolean,
+  ): Promise<void> {
+    if (document) {
+      this.batch.push(document);
+    }
 
-    if (this.batch.length >= this.batchSize || done) {
+    if (this.batch.length === this.batchSize || done) {
       await this.flush();
     }
   }

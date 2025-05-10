@@ -1,4 +1,5 @@
 import {
+  JSONElementCallback,
   parseJSONArrayStreamChunk,
   ParserState,
 } from './parseJSONArrayStreamChunk';
@@ -11,7 +12,7 @@ export class S3Reader<T> {
   }
 
   async streamJSON(
-    onEachElementCallback: (obj: T, done: boolean) => Promise<void>,
+    onEachElementCallback: JSONElementCallback<T>,
   ): Promise<void> {
     const response = await fetch(this.url);
 
@@ -27,6 +28,7 @@ export class S3Reader<T> {
     const parserState: ParserState = {
       buffer: '',
       rootArrayStarted: false,
+      chunkCount: 0,
     };
 
     while (true) {
@@ -41,7 +43,9 @@ export class S3Reader<T> {
         onEachElementCallback,
       );
 
-      if (done) break;
+      if (done) {
+        break;
+      }
     }
   }
 }
