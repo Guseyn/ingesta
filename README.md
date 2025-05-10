@@ -70,7 +70,7 @@ The only thing that we don't do is deleting obsolete documents, since it would r
 
 # How to Add a New Model
 
-Let's say, you want to work with a new model `Restaurant`, which you need read from AWS S3 and ingest it into MongoDB.
+Let's say, you want to work with a new model `Restaurant`, which you need to read from AWS S3 and ingest it into MongoDB.
 
 Below, you can see following steps that can help you to achieve that:
 
