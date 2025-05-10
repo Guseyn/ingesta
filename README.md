@@ -186,4 +186,6 @@ await Promise.all([
 
 6. In `app.module.ts`, add all the new providers and the new cron job.
 
-7. Add new controller with swagger in `app.controller.ts`.
+7. Add DTO for a new model in `dto` directory.
+
+8. Add new controller with swagger annotations in `app.controller.ts`.
