@@ -25,8 +25,8 @@ export class CityCron {
     this.isRunning = true;
     this.logger.log('City Cron job started...');
     try {
-      await this.cityS3Reader.streamJSON(async (city: City) => {
-        await this.cityMongoIngestor.ingestByBatches(city);
+      await this.cityS3Reader.streamJSON(async (city: City, done: boolean) => {
+        await this.cityMongoIngestor.ingestByBatches(city, done);
       });
     } catch (error) {
       this.logger.error('Error in Property City job:', error);

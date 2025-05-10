@@ -26,9 +26,11 @@ export class PropertyCron {
     this.isRunning = true;
     this.logger.log('Property Cron job started...');
     try {
-      await this.propertyS3Reader.streamJSON(async (property: Property) => {
-        await this.propertyMongoIngestor.ingestByBatches(property);
-      });
+      await this.propertyS3Reader.streamJSON(
+        async (property: Property, done: boolean) => {
+          await this.propertyMongoIngestor.ingestByBatches(property, done);
+        },
+      );
     } catch (error) {
       this.logger.error('Error in Property Cron job:', error);
     } finally {

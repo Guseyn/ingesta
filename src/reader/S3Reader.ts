@@ -11,7 +11,7 @@ export class S3Reader<T> {
   }
 
   async streamJSON(
-    onEachElementCallback: (obj: T) => Promise<void>,
+    onEachElementCallback: (obj: T, done: boolean) => Promise<void>,
   ): Promise<void> {
     const response = await fetch(this.url);
 
@@ -37,6 +37,7 @@ export class S3Reader<T> {
       await parseJSONArrayStreamChunk<T>(
         chunk,
         parserState,
+        done,
         onEachElementCallback,
       );
 

@@ -1,4 +1,7 @@
-export type JSONElementCallback<T> = (element: T) => Promise<void>;
+export type JSONElementCallback<T> = (
+  element: T,
+  done: boolean,
+) => Promise<void>;
 
 export type ParserState = {
   buffer: string;
@@ -8,6 +11,7 @@ export type ParserState = {
 export async function parseJSONArrayStreamChunk<T>(
   chunk: string,
   parserState: ParserState,
+  done: boolean,
   onObject: JSONElementCallback<T>,
 ) {
   parserState.buffer += chunk;
@@ -70,7 +74,7 @@ export async function parseJSONArrayStreamChunk<T>(
       depth -= 1;
       currentObjectAccumulator.push(currentChar);
       if (depth === 0) {
-        await onObject(JSON.parse(currentObjectAccumulator.join('')));
+        await onObject(JSON.parse(currentObjectAccumulator.join('')), done);
         currentObjectAccumulator.length = 0;
         currentObjectAccumulator = null;
       }

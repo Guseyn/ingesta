@@ -63,7 +63,7 @@ Each `chunk` can be incomplete piece of JSON, so this function is quite smart to
 
 # How We Write to MongoDB
 
-On each parsed object, we call ingestor, that fills batches of objects. Once it reaches its `batchSize` (100 by default), it ingest the whole batch.
+On each parsed object, we call ingestor, that fills batches of objects. Once it reaches its `batchSize` (100 by default) or the end of the stream, it ingest the whole batch.
 in `src/ingestor/MongoIngestor.ts`, you can see how it works. We are using `collection.bulkWrite` to write many documents at once, and we also updating documents by id to avoid duplicates.
 The only thing that we don't do is deleting obsolete documents, since it would require a lot more time.
 
@@ -137,8 +137,8 @@ export class RestaurantCron {
     this.isRunning = true;
     this.logger.log('Restaurant Cron job started...');
     try {
-      await this.restaurantS3Reader.streamJSON(async (restaurant: Restaurant) => {
-        await this.restaurantMongoIngestor.ingestByBatches(restaurant);
+      await this.restaurantS3Reader.streamJSON(async (restaurant: Restaurant, done: boolean) => {
+        await this.restaurantMongoIngestor.ingestByBatches(restaurant, done);
       })
     } catch (error) {
       this.logger.error('Error in Restaurant Cron job:', error);
@@ -158,8 +158,8 @@ export class RestaurantCron {
 As you can see, main logic in the lines:
 
 ```ts
-await this.restaurantS3Reader.streamJSON(async (restaurant: Restaurant) => {
-  await this.restaurantMongoIngestor.ingestByBatches(restaurant);
+await this.restaurantS3Reader.streamJSON(async (restaurant: Restaurant, done: boolean) => {
+  await this.restaurantMongoIngestor.ingestByBatches(restaurant, done);
 })
 ```
 
@@ -167,7 +167,7 @@ The code above can be read in the following way:
 ```text
 1. We read stream from JSON file on S3
 2. On each parsed object, we call ingestion process
-3. Ingestion process fills a batch of objects, once it reaches its max capacity(100 by default), it ingests the whole batch of objects into MongoDB
+3. Ingestion process fills a batch of objects, once it reaches its max capacity(100 by default) or the end of the stream (done = true), it ingests the whole batch of objects into MongoDB
 ```
 
 5. In `main.ts`, you can run new cron job:
