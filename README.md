@@ -114,7 +114,7 @@ export const RestaurantReader = {
 export const RestaurantIngestor = {
   provide: 'RESTAURANT_INGESTOR',
   useFactory: (client: MongoClient) => {
-    return new MongoIngestor(client, RESTAURANT_COLLECTION_NAME, 100);
+    return new MongoIngestor<Restaurant>(client, RESTAURANT_COLLECTION_NAME, 100);
   },
   inject: ['MONGO_CLIENT'],
 };
