@@ -12,6 +12,7 @@ async function bootstrap() {
 
   // CREATE APP
   const app = await NestFactory.create(AppModule);
+  app.enableShutdownHooks();
 
   // SET UP VALIDATIONS
   app.useGlobalPipes(

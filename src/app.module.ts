@@ -9,9 +9,10 @@ import { CityReader } from './reader/providers/CityReader';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CityCron } from './cron/CityCron';
 import { PropertyCron } from './cron/PropertyCron';
+import { MongoModule } from './mongo/MongoModule';
 
 @Module({
-  imports: [ScheduleModule.forRoot()],
+  imports: [ScheduleModule.forRoot(), MongoModule],
   controllers: [AppController],
   providers: [
     AppService,
