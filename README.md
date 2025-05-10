@@ -57,7 +57,7 @@ Swagger UI available at http://localhost:3000/api
 Files in S3 can be huge, so the best approach would be streaming them. The logic of reading is in `src/reader/S3Reader.ts`.
 
 While we stream our `response.body`, on each `chunk` we call `parseJSONArrayStreamChunk` function. 
-This is my custom parser, it's suited only for array of object (which can be nested). 
+This is my custom parser, it's suited only for array of objects (which can be nested). 
 
 Each `chunk` can be incomplete piece of JSON, so this function is quite smart to buffer pieces of JSON that can be parsed.
 
