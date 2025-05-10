@@ -155,7 +155,7 @@ export class RestaurantCron {
 }
 ```
 
-As you can see, main logic in the lines:
+As you can see, the main logic is in the lines:
 
 ```ts
 await this.restaurantS3Reader.streamJSON(async (restaurant: Restaurant) => {
