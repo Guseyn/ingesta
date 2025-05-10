@@ -100,7 +100,7 @@ export const RESTAURANY_COLLECTION_NAME = 'restaurants';
 export const RestaurantReader = {
   provide: 'RESTAURANT_READER',
   useFactory: () => {
-    return new S3Reader<Restuarant>(
+    return new S3Reader<Restaurant>(
       'https://buenro-tech-assessment-materials.s3.eu-north-1.amazonaws.com/restaurants.json'
     );
   },
@@ -130,8 +130,8 @@ export class RestaurantCron {
   private isRunning = false;
 
   constructor(
-    @Inject('RESTAURANT_READER') private readonly restaurantS3Reader: S3Reader<Restuarant>,
-    @Inject('RESTAURANT_INGESTOR') private readonly restaurantMongoIngestor: MongoIngestor<Restuarant>,
+    @Inject('RESTAURANT_READER') private readonly restaurantS3Reader: S3Reader<Restaurant>,
+    @Inject('RESTAURANT_INGESTOR') private readonly restaurantMongoIngestor: MongoIngestor<Restaurant>,
   ) {}
 
   @Cron('0 */12 * * *') // every 12 hours
