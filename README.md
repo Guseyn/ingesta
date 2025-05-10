@@ -197,3 +197,9 @@ await Promise.all([
 7. Add DTO for a new model in `dto` directory.
 
 8. Add new controller with swagger annotations in `app.controller.ts`.
+
+9. You may want to add a migration with indices for new `restaurants` collection into `migrations` directory:
+
+```
+migrate-mongo create add-indices-for-restaurant-collection
+```
