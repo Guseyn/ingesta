@@ -59,11 +59,11 @@ Files in S3 can be huge, so the best approach would be streaming them. The logic
 While we stream our `response.body`, on each `chunk` we call `parseJSONArrayStreamChunk` function. 
 This is my custom parser, it's suited only for array of objects (which can be nested). 
 
-Each `chunk` can be incomplete piece of JSON, so this function is quite smart to buffer pieces of JSON that can be parsed.
+Each `chunk` can be an incomplete piece of JSON, so this function is quite smart that buffers pieces of JSON that can be parsed.
 
 # How We Write to MongoDB
 
-On each parsed object, we call ingestor, that fills batches of objects. Once it reaches its `batchSize` (100 by default), it ingest the whole batch.
+On each parsed object, we call ingestor, that fills batches of objects. Once it reaches its `batchSize` (100 by default), it ingests the whole batch.
 in `src/ingestor/MongoIngestor.ts`, you can see how it works. We are using `collection.bulkWrite` to write many documents at once, and we also updating documents by id to avoid duplicates.
 The only thing that we don't do is deleting obsolete documents, since it would require a lot more time.
 
