@@ -1,9 +1,17 @@
 # Ingesta
 
+# About
+
+Ingesta is a self-contained, Dockerized application built with TypeScript, NestJS, and MongoDB for streaming and ingesting large JSON datasets from AWS S3 (or any other data stores) into a MongoDB database. 
+
+It features a modular architecture with support for scheduled data ingestion via cron jobs, batch processing for efficient writes, and automated indexing via migrations. 
+
+Swagger UI is integrated for seamless API testing, and the system is designed to be easily extendable for new data models.
+
 # Tech Stack
 1. TypeScript
 1. NestJS
-1. MongoDB 
+1. MongoDB
 1. Docker
 1. Swagger
 1. @nestjs/schedule
