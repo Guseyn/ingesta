@@ -201,3 +201,11 @@ await Promise.all([
 ```
 migrate-mongo create add-indices-for-restaurant-collection
 ```
+
+```js
+await db.collection('restaurants').createIndex({ id: 1 }, { unique: true });
+await db.collection('restaurants').createIndex({ country: 1 });
+await db.collection('restaurants').createIndex({ city: 1 });
+await db.collection('restaurants').createIndex({ availability: 1 });
+await db.collection('restaurants').createIndex({ priceSegment: 1 });
+```
