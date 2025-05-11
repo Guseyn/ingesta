@@ -13,7 +13,6 @@ export class CityRequestDto {
   @IsOptional()
   @IsString()
   @ApiPropertyOptional()
-  @Min(1)
   id?: string;
 
   @IsOptional()
